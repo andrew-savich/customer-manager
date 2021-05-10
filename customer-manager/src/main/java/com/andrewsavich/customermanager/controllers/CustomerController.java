@@ -16,43 +16,50 @@ import com.andrewsavich.customermanager.service.CustomerService;
 
 @Controller
 public class CustomerController {
-	
+
 	@Autowired
 	private CustomerService service;
 
 	@RequestMapping("/")
 	public ModelAndView home() {
 		ModelAndView modelAndView = new ModelAndView("index");
-		
+
 		List<Customer> customers = service.getAllCustomers();
-		
+
 		modelAndView.addObject("customers", customers);
-		
+
 		return modelAndView;
 	}
-	
+
 	@RequestMapping("/new")
 	public String newCustomerForm(Map<String, Object> model) {
-		
+
 		model.put("customer", new Customer());
-		
+
 		return "new_customer";
 	}
-	
+
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveCustomer(@ModelAttribute("customer") Customer customer) {
 		service.saveCustomer(customer);
-		
+
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/edit")
 	public ModelAndView editCustomerForm(@RequestParam long id) {
 		ModelAndView modelAndView = new ModelAndView("edit_customer");
 		Customer customer = service.getCustomer(id);
 		modelAndView.addObject("customer", customer);
-		
+
 		return modelAndView;
+	}
+
+	@RequestMapping("/delete")
+	public String deleteCustomer(@RequestParam long id) {
+		service.deleteCustomer(id);
+
+		return "redirect:/";
 	}
 
 }

@@ -26,4 +26,8 @@ public class CustomerService {
 		Optional<Customer> result = repository.findById(id);
 		return result.get();
 	}
+	
+	public void deleteCustomer(long id) {
+		repository.deleteById(id);
+	}
 }
