@@ -61,5 +61,14 @@ public class CustomerController {
 
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/search")
+	public ModelAndView search(@RequestParam String keyword) {
+		ModelAndView modelAndView = new ModelAndView("search");
+		List<Customer> result = service.serach(keyword);
+		modelAndView.addObject("result", result);
+		
+		return modelAndView;
+	}
 
 }
