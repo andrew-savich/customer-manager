@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.andrewsavich.customermanager.model.Customer;
@@ -43,6 +44,15 @@ public class CustomerController {
 		service.saveCustomer(customer);
 		
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/edit")
+	public ModelAndView editCustomerForm(@RequestParam long id) {
+		ModelAndView modelAndView = new ModelAndView("edit_customer");
+		Customer customer = service.getCustomer(id);
+		modelAndView.addObject("customer", customer);
+		
+		return modelAndView;
 	}
 
 }
