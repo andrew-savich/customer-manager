@@ -12,6 +12,9 @@ local.properties
 .loadpath
 .recommenders
 
+#Ignore META-INF 
+META-INF
+
 # External tool builders
 .externalToolBuilders/
 
